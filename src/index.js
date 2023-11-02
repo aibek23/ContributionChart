@@ -13,7 +13,6 @@ function App() {
         setData(dataApi);
       })
       .catch(error => {
-        // Обработка ошибок
         console.error(error);
       });
   }, []);
