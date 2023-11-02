@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/ContributionChart/static/css/main.8664f6fb.css",
+    "main.js": "/ContributionChart/static/js/main.a4b58e54.js",
+    "index.html": "/ContributionChart/index.html",
+    "main.8664f6fb.css.map": "/ContributionChart/static/css/main.8664f6fb.css.map",
+    "main.a4b58e54.js.map": "/ContributionChart/static/js/main.a4b58e54.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.8664f6fb.css",
+    "static/js/main.a4b58e54.js"
+  ]
+}
