@@ -1,22 +1,22 @@
 import React, { useState, useEffect, useRef } from "react";
-import { format, parseISO } from "date-fns";
+import { format, parseISO ,getDay} from "date-fns";
 import { ru } from "date-fns/locale";
 const ContributionChart = ({ data }) => {
   const rows = 7;
   const columns = 51;
   const months = [
-    "Янв.",
-    "Февр.",
-    "Март.",
-    "Апр.",
-    "Май.",
-    "Июнь.",
-    "Июль.",
-    "Авг.",
-    "Сент.",
-    "Окт.",
-    "Нояб.",
     "Дек.",
+    "Нояб.",
+    "Окт.",
+    "Сент.",
+    "Авг.",
+    "Июль.",
+    "Июнь.",
+    "Май.",
+    "Апр.",
+    "Март.",
+    "Февр.",
+    "Янв.",
   ];
 
   const weekdays = ["Пн", "Ср", "Пт"];
@@ -26,10 +26,7 @@ const ContributionChart = ({ data }) => {
   const blockRef = useRef(null);
 
   useEffect(() => {
-    // Добавьте обработчик события для всего документа при монтировании компонента.
     document.addEventListener("click", handleClickOutside);
-
-    // Удалите обработчик события при размонтировании компонента.
     return () => {
       document.removeEventListener("click", handleClickOutside);
     };
@@ -58,18 +55,17 @@ const ContributionChart = ({ data }) => {
 
   const generateChart = () => {
     const chart = [];
-    let currentDate = new Date();
-    currentDate.setDate(currentDate.getDate() - 50 * 7);
 
-    for (let i = 0; i < rows; i++) {
-      const row = [];
+    for (let i = 0; i < columns; i++) {
+      const column = [];
 
-      for (let j = 0; j < columns; j++) {
+      for (let j = 0; j < rows; j++) {
+        const currentDate = new Date(2023, 0, 3+ i * rows + j);
         const dateString = currentDate.toISOString().slice(0, 10);
         const count = data[dateString] || 0;
         const color = generateColor(count);
 
-        row.push(
+        column.push(
           <div
             key={dateString}
             className="day"
@@ -79,19 +75,18 @@ const ContributionChart = ({ data }) => {
             onClick={(e) => handleCellClick(dateString, e, count)}
           ></div>
         );
-
-        currentDate.setDate(currentDate.getDate() + 1);
       }
 
       chart.push(
-        <div key={`row-${i}`} style={{ display: "flex" }}>
-          {row}
+        <div key={`column-${i}`} style={{ display: "flex", flexDirection: "column" }}>
+          {column}
         </div>
       );
     }
 
     return chart;
   };
+
   const handleCellClick = (dateString, event, count) => {
     if (count !== null) {
       setHoveredDate(dateString);
@@ -103,7 +98,26 @@ const ContributionChart = ({ data }) => {
   return (
     <div className="container">
       <div className="contribution" ref={blockRef}>
-        <div style={{ display: "flex" }}>
+         
+      <div
+            style={{
+              display: "flex",
+              flexDirection: "row-reverse",
+              flexWrap: "nowrap",
+              justifyContent: "space-between",
+
+              marginLeft: "55px",
+            }}
+          >
+            {months.map((month, index) => (
+              <div key={index} className="months-label">
+                {month}
+              </div>
+            ))}
+                 </div>
+        <div style={{ display: "flex", flexDirection: "column"}}>
+         <div>
+                    <div style={{ display: "flex" }}>
           <div className="weekdays">
             {weekdays.map((day, index) => (
               <div key={index} className="weekday_label">
@@ -111,30 +125,10 @@ const ContributionChart = ({ data }) => {
               </div>
             ))}
           </div>
-
-          <div
-            style={{
-              display: "flex",
-              flexDirection: "column-reverse",
-              margin: "0 5px",
-            }}
-          >
             {generateChart()}
-            <div
-              style={{
-                display: "flex",
-                flexWrap: "nowrap",
-                justifyContent: "space-between",
-                padding: " 0 20px",
-              }}
-            >
-              {months.map((months, index) => (
-                <div key={index} className="months-label">
-                  {months}
-                </div>
-              ))}
-            </div>
           </div>
+         </div>
+
         </div>
 
         <div className="day_discription">
@@ -153,29 +147,30 @@ const ContributionChart = ({ data }) => {
             }}
             onClick={(e) => handleCellClick("", e, "1-9")}
           ></div>
-             <div
+          <div
             className="day"
             style={{
               backgroundColor: "#7FA8C9",
             }}
             onClick={(e) => handleCellClick("", e, "10-19")}
           ></div>
-            <div
+          <div
             className="day"
             style={{
               backgroundColor: "#527BA0",
             }}
             onClick={(e) => handleCellClick("", e, "20-29")}
           ></div>
-             <div
+          <div
             className="day"
             style={{
-              backgroundColor: "#254E77",
+              backgroundColor: "#EDEDED",
             }}
             onClick={(e) => handleCellClick("", e, "30+")}
           ></div>
-                   <p className="Less_More">Больше</p>
+          <p className="Less_More">Больше</p>
         </div>
+
         {hoveredCount !== null && (
           <div
             className="tooltip"
@@ -185,10 +180,10 @@ const ContributionChart = ({ data }) => {
               left: tooltipPosition.x,
             }}
           >
-            <p>{hoveredCount===0?"No":hoveredCount} contributions </p>
+            <p>{hoveredCount === 0 ? "No" : hoveredCount} contributions</p>
             {hoveredDate && (
               <p style={{ color: "#7C7C7C" }}>
-                {format(parseISO(hoveredDate), "EEEE, MMMM d, yyyy", {
+                  {format(parseISO(hoveredDate), "EEEE, MMMM d, yyyy", {
                   locale: ru,
                 })}{" "}
               </p>

@@ -132,24 +132,27 @@ input{
   box-sizing: border-box;
 }
 .contribution{
- width: 890px;
+ width: 765px;
 }
-.months-label{
+.months-label{ 
+
+  display: flex;
 font-size: 12px;
 font-weight: 400;
-line-height: 15px;
+line-height: 20px;
 letter-spacing: 0em;
-text-align: left;
+
 color: #959494;
 }
 
 .weekdays{
   display: flex;
   flex-direction: column;
-  justify-content: flex-end;
+  justify-content: flex-start;
+  margin-right: 5px;
 }
 .weekday_label{
-  height: 35px;
+  height: 30px;
   font-size: 12px;
 font-weight: 400;
 line-height: 15px;
