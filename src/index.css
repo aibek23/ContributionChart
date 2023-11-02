@@ -38,7 +38,7 @@ button{
   border: none;
   font-family: inherit;
   background-color: transparent;
-  cursor: pointer;
+
 }
 img{
   width: 100%;
@@ -158,14 +158,14 @@ text-align: left;
 color: #959494;
 }
 .day{
-  width: 16px;
+  width: 15px;
   height: 15px;
-  border: 2px solid white;
+  border: 1px solid white;
   cursor: pointer;
 
 }
 .day:hover{
-  border: 2px solid #00000080
+  border: 1px solid #00000080
 }
 .tooltip{
   position: fixed;
@@ -187,4 +187,27 @@ color: #959494;
   border-style: solid;
   /* color: #010101; */
   border-color: rgba(0, 0, 0, 1) transparent transparent;
+
+font-size: 12px;
+font-weight: 400;
+line-height: 15px;
+letter-spacing: 0em;
+text-align: left;
+
+}
+
+.day_discription{
+  display: flex;
+  align-items: center;
+  margin-top:15px ;
+}
+.Less_More{
+  margin: 0 10px;
+  font-size: 8px;
+  font-weight: 400;
+  line-height: 10px;
+  letter-spacing: 0em;
+
+  color: #959494;
+  
 }
